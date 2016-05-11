@@ -1,3 +1,14 @@
+# CMake
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# QtCreator
+CMakeLists.txt.user
+
 # Compiled Object files
 *.slo
 *.lo
