@@ -25,10 +25,12 @@ public:
 signals:
 	void mountEntryAppeared(const QString& path, const QString& device);
 	void mountEntryDisappeared(const QString& path);
+	void clear();
 
 public slots:
 	void onMountEntryAppeared(const QString& path, const QString& device);
 	void onMountEntryDisappeared(const QString& path);
+	void onClear();
 
 private:
 	QList<MountEntry> _mounts;

@@ -24,9 +24,18 @@ ApplicationWindow {
 		id: clearLogAction
 		text: qsTr("&Clear")
 		tooltip: qsTr("Clear the log contents")
-		shortcut: StandardKey.Backspace
-		onTriggered: testModel.clear();
+		shortcut: "Backspace"
+		onTriggered: mountsModel.clear()
 	}
+
+	Action {
+		id: updateAction
+		text: qsTr("&Refresh")
+		tooltip: qsTr("Refresh current media devices list")
+		shortcut: "CTRL+R"
+		onTriggered: mountsWatcher.forcedUpdate()
+	}
+
 
 	menuBar: MenuBar {
 		Menu {
@@ -37,8 +46,10 @@ ApplicationWindow {
 		Menu {
 			title: qsTr("&Edit");
 			MenuItem { action: clearLogAction }
+			MenuItem { action: updateAction }
 		}
 	}
+
 
 	statusBar: StatusBar {
 		RowLayout {
@@ -46,6 +57,7 @@ ApplicationWindow {
 			Label { text: qsTr("Please, insert (remove) storage device...") }
 		}
 	}
+
 
 	TableView {
 		id: tableView
@@ -65,6 +77,5 @@ ApplicationWindow {
 			title: "Device"
 			width: 100
 		}
-
 	}
 }

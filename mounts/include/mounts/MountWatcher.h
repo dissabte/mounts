@@ -30,6 +30,11 @@ public:
 	 */
 	virtual ~MountWatcher();
 
+	/*!
+	 * \brief Forces sending DEVICE_MOUNTED notification for every mounted media device
+	 */
+	void forcedUpdate() const;
+
 private:
 	class Implementation;
 	std::shared_ptr<Implementation> _impl;

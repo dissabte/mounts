@@ -29,6 +29,23 @@ MountWatcher::Implementation::~Implementation()
 	_thread.join();
 }
 
+void MountWatcher::Implementation::forcedUpdate() const
+{
+	MountInfoReader mountInfoReader;
+	std::set<std::string> paths = mountInfoReader.readMountedPaths(MountInfoReader::kMediaPrefix);
+
+	if (!paths.empty())
+	{
+		for (const std::string& path : paths)
+		{
+			MountNotificationData data;
+			data.properties.emplace(std::string("path"), path);
+			data.properties.emplace(std::string("device"), mountInfoReader.getDeviceForMountedPath(path));
+			_watcher.notifyObservers(MountNotificationType::DEVICE_MOUNTED, data);
+		}
+	}
+}
+
 void MountWatcher::Implementation::run() const
 {
 	MountInfoReader mountInfoReader;

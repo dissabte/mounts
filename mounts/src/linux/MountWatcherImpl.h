@@ -39,6 +39,8 @@ public:
 	 */
 	~Implementation();
 
+	void forcedUpdate() const;
+
 private:
 	void run() const;
 

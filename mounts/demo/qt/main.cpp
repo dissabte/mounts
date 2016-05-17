@@ -7,14 +7,18 @@
 
 #include "model/MountModel.h"
 #include "model/MountEntry.h"
+#include "model/MountWatcherProxy.h"
+
 
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	QQmlApplicationEngine engine;
 
+	// Model for the qml view
 	MountModel model;
 
+	// Creating mount watcher and adding observer callbacks
 	MountWatcher watcher;
 	watcher.registerObserver(MountNotificationType::DEVICE_MOUNTED, [&model](const MountNotificationData& notification)
 	{
@@ -48,8 +52,13 @@ int main(int argc, char *argv[])
 		}
 	});
 
+	MountWatcherProxy proxy(watcher);
+
 	engine.rootContext()->setContextProperty("mountsModel", &model);
+	engine.rootContext()->setContextProperty("mountsWatcher", &proxy);
 	engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+	watcher.forcedUpdate(); // This will send DEVICE_MOUNTED notification for all currently mounted media devices
 
 	return app.exec();
 }

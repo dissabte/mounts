@@ -9,6 +9,7 @@ MountModel::MountModel(QObject* parent)
 
 	connect(this, &MountModel::mountEntryAppeared, this, &MountModel::onMountEntryAppeared);
 	connect(this, &MountModel::mountEntryDisappeared, this, &MountModel::onMountEntryDisappeared);
+	connect(this, &MountModel::clear, this, &MountModel::onClear);
 }
 
 int MountModel::rowCount(const QModelIndex& parent) const
@@ -48,14 +49,23 @@ void MountModel::onMountEntryAppeared(const QString& path, const QString& device
 
 void MountModel::onMountEntryDisappeared(const QString& path)
 {
-	beginRemoveRows(QModelIndex(), 0, rowCount());
+	int rowIndex = 0;
 	for (const MountEntry& entry : _mounts)
 	{
 		if (entry.path() == path)
 		{
+			beginRemoveRows(QModelIndex(), rowIndex, rowIndex);
 			_mounts.removeOne(entry);
+			endRemoveRows();
 			break;
 		}
+		++rowIndex;
 	}
+}
+
+void MountModel::onClear()
+{
+	beginRemoveRows(QModelIndex(), 0, rowCount());
+	_mounts.clear();
 	endRemoveRows();
 }

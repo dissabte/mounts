@@ -24,4 +24,9 @@ MountWatcher::~MountWatcher()
 {
 }
 
+void MountWatcher::forcedUpdate() const
+{
+	_impl->forcedUpdate();
+}
+
 //! \endcond
