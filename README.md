@@ -41,5 +41,5 @@ watcher.registerObserver(MountNotificationType::DEVICE_MOUNTED, [](const MounNot
 	std::cout << std::endl;
 });
 ~~~
-Check mounts [demo](https://github.com/dissabte/mounts/blob/master/mounts/tests/demo/main.cpp) app for more info.
+Check mounts [demo](https://github.com/dissabte/mounts/blob/master/mounts/demo/cli/main.cpp) app for more info.
 
