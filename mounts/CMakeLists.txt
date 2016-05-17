@@ -35,8 +35,9 @@ if(UNITTEST_CPP_FOUND)
 	add_subdirectory("tests")
 endif()
 
-# demo app
-add_subdirectory("tests/demo")
+# demo apps
+add_subdirectory("tests/demo/cli")
+add_subdirectory("tests/demo/qt")
 
 # Doxygen
 set(MOUNTS_DOCUMENTATION_DIR "docs")
